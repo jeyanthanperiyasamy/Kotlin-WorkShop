@@ -1,35 +1,33 @@
-fun main(args: Array<String>) {
-    println("Hello World!")
-
-    // Try adding program arguments via Run/Debug configuration.
-    // Learn more about running applications: https://www.jetbrains.com/help/idea/running-applications.html.
-    println("Program arguments: ${args.joinToString()}")
-
-
-    val circle = Shape.Circle(4.5f)
-    val square = Shape.Square(4)
-    val rectangle = Shape.Rectangle
-
-    eval(circle)
-    eval(square)
-    eval(rectangle)
-
+sealed class Fruit(val x : String)
+{
+    // Two subclasses of sealed class defined within
+    class Apple : Fruit("Apple")
+    class Mango : Fruit("Mango")
 }
 
-sealed class Shape {
-    class Circle(var radius: Float): Shape()
-    class Square(var length: Int): Shape()
-    object Rectangle: Shape()
+// A subclass defined outside the sealed class
+class Pomegranate: Fruit("Pomegranate")
+
+// A function to take in an object of type Fruit
+// And to display an appropriate message depending on the type of Fruit
+fun display(fruit: Fruit)
+{
+    when(fruit)
     {
-        var length: Int = 4
-        var breadth : Int = 5
+        is Fruit.Apple -> println("${fruit.x} is good for iron")
+        is Fruit.Mango -> println("${fruit.x} is delicious")
+        is Pomegranate -> println("${fruit.x} is good for vitamin d")
     }
 }
+fun main()
+{
+    // Objects of different subclasses created
+    val obj = Fruit.Apple()
+    val obj1 = Fruit.Mango()
+    val obj2 = Pomegranate()
 
-fun eval(e: Shape) =
-    when (e) {
-        is Shape.Circle -> println("Circle area is ${3.14*e.radius*e.radius}")
-        is Shape.Square -> println("Square area is ${e.length*e.length}")
-        Shape.Rectangle -> println("Rectangle area is ${Shape.Rectangle.length*Shape.Rectangle.breadth}")
-        else -> { println("nothing") }
-    }
+    // Function called with different objects
+    display(obj)
+    display(obj1)
+    display(obj2)
+}
