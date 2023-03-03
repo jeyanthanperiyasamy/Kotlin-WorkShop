@@ -1,3 +1,5 @@
+//Does not mean you cannot set Object to Null
+
 fun main(args: Array<String>){
     // variable is declared as non-nullable
     val s1 : String = "Geeks"
